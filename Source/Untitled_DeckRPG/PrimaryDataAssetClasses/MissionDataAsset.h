@@ -1,15 +1,21 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
+
 #include "Engine/DataAsset.h"
+#include "Untitled_DeckRPG/InstanceClasses/EnemyInstance.h"
 #include "MissionDataAsset.generated.h"
 
-/**
- * 
- */
-UCLASS()
+USTRUCT(BlueprintType)
+struct FMissionWave {
+	GENERATED_BODY()
+	
+	/// What enemies are in a wave
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=MissionWave)
+	TArray<FEnemyInstanceConfig> Enemies;
+};
+
+UCLASS(Blueprintable)
 class UNTITLED_DECKRPG_API UMissionDataAsset : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
@@ -39,9 +45,11 @@ public:
 private:
 protected:
 public:
-	//TArray<TArray<FEnemyConfigs>> Waves;
+	/// The waves for the mission, stored in the order that they appear
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=MissionDataAsset)
+	TArray<FMissionWave> Waves;
 	
-	// TODO: put in some information data for backdrops
+	// TODO: put in some information data for backdrops/scenery/global_effects/etc
 
 	// ======================================
 	// ===== CONSTRUCTORS_/_DESTRUCTORS =====
@@ -54,7 +62,12 @@ public:
 	// =============================
 private:
 protected:
-public:
+	public:
+	UFUNCTION(BlueprintCallable, Category=MissionDataAsset)
+    virtual FPrimaryAssetId GetPrimaryAssetId() const override {
+		return FPrimaryAssetId("Missions", GetFName());
+	};
+	
 	// ===================
 	// ===== METHODS =====
 	// ===================
