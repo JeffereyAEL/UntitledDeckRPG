@@ -2,77 +2,96 @@
 
 #include "CoreMinimal.h"
 
+#include "UObject/ObjectMacros.h"
+
+
 #include "SummonerDeck.generated.h"
 
-UCLASS()
-class UNTITLED_DECKRPG_API USummonerDeck : public UObject
-{
+USTRUCT(BlueprintType)
+struct FSummonInstanceConfig {
 	GENERATED_BODY()
-	// ==============================
-	// ===== DEFINES_/_TYPEDEFS =====
-	// ==============================
+	
+	UPROPERTY(EditAnywhere, Category=SummonInstanceConfig)
+	FString Name;
+};
 
-	// ======================================
-	// ===== FRIEND_FUNCTIONS_/_CLASSES =====
-	// ======================================
+USTRUCT(BlueprintType)
+struct FArmorInstanceConfig {
+	GENERATED_BODY()
 
-	// ========================
-	// ===== ENUM_CLASSES =====
-	// ========================
-	private:
-	protected:
-	public:
-	// ==========================
-	// ===== NESTED_CLASSES =====
-	// ==========================
-	private:
-	protected:
-	public:
+	UPROPERTY(EditAnywhere, Category=ArmorInstanceConfig)
+	FString Name;
+};
+
+USTRUCT(BlueprintType)
+struct FSummonerDeckConfig {
+	GENERATED_BODY()
 	// ======================
 	// ===== ATTRIBUTES =====
 	// ======================
-	private:
-	const int StandardDeckSize = 5;
+private:
+protected:
+	// UPROPERTY(BlueprintReadOnly)
+	// int StandardSize = 5;
 	
-	protected:
-	public:
-	UPROPERTY(BlueprintReadOnly, Category=Deck)
-	int DeckSize;
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Deck)
+	int Size UMETA(ClampMin="3", ClampMax="7");
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Deck)
+	FSummonInstanceConfig SummonOne;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Deck)
+	FSummonInstanceConfig SummonTwo;
 	
-	UPROPERTY(BlueprintReadOnly, Category=Deck)
-	TArray<class USummonInstance*> Summons;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Deck)
+	FSummonInstanceConfig SummonThree;
 	
-	UPROPERTY(BlueprintReadOnly, Category=Deck)
-	class UArmorInstance * Head;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Deck)
+	FSummonInstanceConfig SummonFour UMETA(EditCondition="Size>=4");
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Deck)
+	FSummonInstanceConfig SummonFive UMETA(EditCondition="Size>=5");
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Deck)
+	FSummonInstanceConfig SummonSix UMETA(EditCondition="Size>=6");
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Deck)
+	FSummonInstanceConfig SummonSeven UMETA(EditCondition="Size=7");
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Deck)
+	FArmorInstanceConfig Head;
 
-	UPROPERTY(BlueprintReadOnly, Category=Deck)
-	UArmorInstance * Chest;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Deck)
+	FArmorInstanceConfig Chest;
 
-	UPROPERTY(BlueprintReadOnly, Category=Deck)
-	UArmorInstance * Arms;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Deck)
+	FArmorInstanceConfig Arms;
 
-	UPROPERTY(BlueprintReadOnly, Category=Deck)
-	UArmorInstance * Legs;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Deck)
+	FArmorInstanceConfig Legs;
 
-	UPROPERTY(BlueprintReadOnly, Category=Deck)
-	UArmorInstance * Feet;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Deck)
+	FArmorInstanceConfig Feet;
 	
 	// ======================================
 	// ===== CONSTRUCTORS_/_DESTRUCTORS =====
 	// ======================================
-	private:
-	protected:
-	public:
+private:
+protected:
+public:
+	FSummonerDeckConfig() = default;
+	
 	// =============================
 	// ===== GETTERS_/_SETTERS =====
 	// =============================
-	private:
-	protected:
-	public:
+private:
+protected:
+public:
 	// ===================
 	// ===== METHODS =====
 	// ===================
-	private:
-	protected:
-	public:
+private:
+protected:
+public:
 };

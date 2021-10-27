@@ -6,6 +6,12 @@
 #include "../SummonerDeck.h"
 #include "SummonerPersistentData.generated.h"
 
+UCLASS()
+class UNTITLED_DECKRPG_API USummonerDeck : public UObject {
+    GENERATED_BODY()
+    USummonerDeck() = default;
+};
+
 USTRUCT(BlueprintType)
 struct FSummonerPersistentData {
     GENERATED_BODY()

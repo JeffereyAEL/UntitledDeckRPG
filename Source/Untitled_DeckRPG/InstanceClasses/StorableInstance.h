@@ -33,7 +33,7 @@ struct FStorableInstanceConfig {
 	/// the rank of the item
 	UPROPERTY(BlueprintReadOnly, Category=ArmorInstanceConfig)
 	int Rank;
-
+	
 	FStorableInstanceConfig();
 };
 
