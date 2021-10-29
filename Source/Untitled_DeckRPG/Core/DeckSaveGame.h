@@ -1,16 +1,13 @@
 #pragma once
 
-#include "Untitled_DeckRPG/DeckRPG.h"
-#include "Untitled_DeckRPG/SummonerDeck.h"
+#include "CoreMinimal.h"
 
+#include "DeckSummonerStats.h"
+#include "GameFramework/SaveGame.h"
+#include "DeckSaveGame.generated.h"
 
-#include "GlobalEventManager.generated.h"
-
-class ADeckPlayerController;
-
-/** achievements?? currently just a debug class */
 UCLASS()
-class UNTITLED_DECKRPG_API UGlobalEventManager : public UObject
+class UNTITLED_DECKRPG_API UDeckSaveGame : public USaveGame
 {
 	GENERATED_BODY()
 	// ==============================
@@ -37,37 +34,48 @@ class UNTITLED_DECKRPG_API UGlobalEventManager : public UObject
 	// ===== ATTRIBUTES =====
 	// ======================
 	private:
+	UPROPERTY()
+	bool bValidSave;
+
+	UPROPERTY()
+	FDeckSummonerStats ConstructedData;
+	
 	protected:
 	public:
+	UPROPERTY(EditAnywhere, Category=SummonerSaveData);
+	FString Name;
+	
+	UPROPERTY(EditAnywhere, Category=SummonerSaveData);
+	TArray<FDeckArmor> Inventory;
 	// ======================================
 	// ===== CONSTRUCTORS_/_DESTRUCTORS =====
 	// ======================================
 	private:
 	protected:
 	public:
-	UGlobalEventManager();
+	UDeckSaveGame();
 
-	void PostConstruct(ADeckPlayerController * controller);
-	
 	// =============================
 	// ===== GETTERS_/_SETTERS =====
 	// =============================
 	private:
 	protected:
 	public:
-	// ===================
+	UFUNCTION(BlueprintCallable, Category=SummonerSaveGame)
+    bool IsValidSave() const { return bValidSave; }
+	
+	// ===================s
 	// ===== METHODS =====
 	// ===================
 	private:
 	protected:
 	public:
-	/// the current summoner attained a new item
-	UFUNCTION(BlueprintNativeEvent, Category=GlobalEvents)
-	void PlayerGotItem(FDeckArmor item_instance);
-	virtual void PlayerGotItem_Implementation(FDeckArmor item_instance);
+	UFUNCTION(BlueprintCallable, Category=SummonerSaveGame)
+	void SetPlayerData(FDeckSummonerStats data);
 
-	/// the current summoner attained a new item
-	UFUNCTION(BlueprintNativeEvent, Category=GlobalEvents)
-    void PlayerGotItem(FDeckSummon item_instance);
-	virtual void PlayerGotItem_Implementation(FDeckSummon item_instance);
+	UFUNCTION(BlueprintCallable, Category=SummonerSaveGame)
+	FDeckSummonerStats GetPlayerData(APlayerController* controller) const;
+
+	UFUNCTION(BlueprintCallable, Category=SummonerSaveGame)
+	void PostConstruction(FDeckSummonerStats data);
 };

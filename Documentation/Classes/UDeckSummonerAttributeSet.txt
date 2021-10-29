@@ -1,0 +1,40 @@
+	// ======================================
+	// ===== CONSTRUCTORS_/_DESTRUCTORS =====
+	// ======================================
+private:
+protected:
+public:
+	// ======================
+	// ===== PROPERTIES =====
+	// ======================
+private:
+protected:
+public:
+	/** the mana of a given summoner instance at that moment */
+	UPROPERTY(BlueprintReadOnly, Category=Attributes)
+	FGameplayAttributeData Mana;
+	
+	/** the max value of Mana */
+	UPROPERTY(BlueprintReadOnly, Category=Attributes)
+	FGameplayAttributeData ManaMax;
+	
+	/** the max value of Mana */
+	UPROPERTY(BlueprintReadOnly, Category=Attributes)
+	FGameplayAttributeData Level;
+	
+	/** the max value of Mana */
+	UPROPERTY(BlueprintReadOnly, Category=Attributes)
+	FGameplayAttributeData Experience;
+	
+	// =============================
+	// ===== GETTERS_/_SETTERS =====
+	// =============================
+private:
+protected:
+public:
+	// ===================
+	// ===== METHODS =====
+	// ===================
+private:
+protected:
+public:

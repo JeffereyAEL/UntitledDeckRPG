@@ -1,0 +1,45 @@
+	// ======================================
+	// ===== CONSTRUCTORS_/_DESTRUCTORS =====
+	// ======================================
+private:
+protected:
+public:
+	URPGAttributeSet();
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	
+	// ======================
+	// ===== PROPERTIES =====
+	// ======================
+private:
+protected:
+public:
+	/** used to determine if a character is alive */
+	UPROPERTY(BlueprintReadOnly, Category=Attributes)
+	FGameplayAttributeData Health;
+	
+	/** the max value of health */
+	UPROPERTY(BlueprintReadOnly, Category=Attributes)
+	FGameplayAttributeData HealthMax;
+	
+	/** modifies the damage of the owner's abilities */
+	UPROPERTY(BlueprintReadOnly, Category=Attributes)
+	FGameplayAttributeData Power;
+	
+	/** modifies the damage taken by the owner from external abilities */
+	UPROPERTY(BlueprintReadOnly, Category=Attributes)
+	FGameplayAttributeData Defense;
+	
+	// =============================
+	// ===== GETTERS_/_SETTERS =====
+	// =============================
+private:
+protected:
+public:
+	// ===================
+	// ===== METHODS =====
+	// ===================
+private:
+protected:
+public:

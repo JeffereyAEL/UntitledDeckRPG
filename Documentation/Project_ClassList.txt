@@ -1,0 +1,30 @@
+==========================
+===== Attribute Sets =====
+==========================
+/// The base attribute class for enemies and player characters
+UDeckAttributeSet : public UAttributeSet
+
+// The summoner character attribute class
+UDeckSummonerAttributeSet : public UDeckAttributeSet
+
+===============================
+===== Primary Data Assets =====
+===============================
+/// The generic item data asset
+UDeckItem : public UPrimaryDataAsset
+
+==============================
+===== Player Controllers =====
+==============================
+/// The player controller for summoner characters
+ADeckPlayerController : public APlayerController
+
+======================
+===== Save Games =====
+======================
+/// the save game
+UDeckSaveGame : public USaveGame
+
+===================
+===== Objects =====
+===================

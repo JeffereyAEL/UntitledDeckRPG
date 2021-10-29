@@ -1,0 +1,8 @@
+ - All project specific classes and structs follow the Unreal Engine relevant prefix with "Deck"
+	ex.	class ADeckPlayerController
+		class UDeckItem
+		struct FDeckPlayerData
+
+ - UENUMS are prefixed with "EDeck". however non-Unreal enums are enclosed within the namespace "EDeck" + enum name and the enum is then named "type"
+ 
+ -
