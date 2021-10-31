@@ -1,32 +1,41 @@
 #include "DeckPlayerController.h"
-#include "GlobalEventManager.h"
-#include "DeckGameMode.h"
-#include "../Externals/DefinedDebugHelpers.h"
+#include "Untitled_DeckRPG/DeckCPPHelper.h"
+#include "Untitled_DeckRPG/Core/DeckGameMode.h"
+#include "Untitled_DeckRPG/AssetClasses/ItemClasses/DeckArmorAsset.h"
+#include "Untitled_DeckRPG/AssetClasses/ItemClasses/DeckSummonAsset.h"
 
 ADeckPlayerController::ADeckPlayerController() {
 }
+
 
 void ADeckPlayerController::SetPersistentData(FDeckSummonerStats persistent_data) {
     PersistentData = persistent_data;
 }
 
-void ADeckPlayerController::BeginPlay() {
-    Super::BeginPlay();
+UDeckDebugManager* ADeckPlayerController::GetDebugger() const { return EventManager; }
+
+void ADeckPlayerController::PostActorCreated() {
 #if WITH_EDITOR
     SCREENMSG("SummonerPlayerController has been created");
 #endif
-    EventManager = NewObject<UGlobalEventManager>(this, UGlobalEventManager::StaticClass());
+    EventManager = NewObject<UDeckDebugManager>(this, UDeckDebugManager::StaticClass());
+    EventManager->PostConstruct(this);
 }
 
-void ADeckPlayerController::AppendInventory(FDeckArmor armor) {
+void ADeckPlayerController::AppendInventorySummon(UDeckSummonAsset* asset) {
+    FDeckSummon summon{};
+    summon.SummonData = FDeckAssetRef{Cast<UDataAsset>(asset)};
+    OnSummonObatained.Broadcast(summon);
+    PersistentData.InventorySummons.Add(summon);
+}
+
+void ADeckPlayerController::AppendInventoryArmor(UDeckArmorAsset * asset) {
+    FDeckArmor armor{};
+    armor.ArmorData = FDeckAssetRef{Cast<UDeckDataAsset>(asset)};
     OnArmorObatained.Broadcast(armor);
     PersistentData.InventoryArmors.Add(armor);
 }
 
-void ADeckPlayerController::AppendInventory(FDeckSummon summon) {
-    OnSummonObatained.Broadcast(summon);
-    PersistentData.InventorySummons.Add(summon);
-}
 
 void ADeckPlayerController::SaveSummoner() const {
     auto game_mode = Cast<ADeckGameMode>(GetWorld()->GetAuthGameMode());
@@ -36,12 +45,14 @@ void ADeckPlayerController::SaveSummoner() const {
 void ADeckPlayerController::LoadCurrentSummoner() {
     auto game_mode = Cast<ADeckGameMode>(GetWorld()->GetAuthGameMode());
     auto temp = game_mode->LoadPlayerPersistentData(this, PersistentData.Name);
-#if WITH_EDITOR
+
     if (PersistentData.Name.Compare(temp.Name, ESearchCase::CaseSensitive) != 0)
     {
+#if WITH_EDITOR
         SCREENMSGT("Couldn't load a save for the current summoner", 5);
+#endif
         return;
     }
-#endif
     PersistentData = temp;
 }
+

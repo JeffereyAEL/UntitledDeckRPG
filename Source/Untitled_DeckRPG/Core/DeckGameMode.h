@@ -1,11 +1,13 @@
 #pragma once
 
 #include "Untitled_DeckRPG/DeckRPG.h"
+#include "Untitled_DeckRPG/DeckRPGTypes.h"
 
 #include "GameFramework/GameModeBase.h"
-#include "DeckPlayerController.h"
-#include "DeckSaveGame.h"
 #include "DeckGameMode.generated.h"
+
+class UDeckSaveGame;
+class ADeckPlayerController;
 
 UCLASS(BlueprintType)
 class UNTITLED_DECKRPG_API ADeckGameMode : public AGameModeBase
@@ -47,7 +49,7 @@ class UNTITLED_DECKRPG_API ADeckGameMode : public AGameModeBase
 	private:
 	protected:
 	public:
-	ADeckGameMode();;
+	ADeckGameMode();
 	
 	// =============================
 	// ===== GETTERS_/_SETTERS =====

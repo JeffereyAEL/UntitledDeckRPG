@@ -1,8 +1,7 @@
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Untitled_DeckRPG/DeckRPG.h"
 
-#include "DeckSummonerStats.h"
 #include "GameFramework/SaveGame.h"
 #include "DeckSaveGame.generated.h"
 
@@ -36,17 +35,12 @@ class UNTITLED_DECKRPG_API UDeckSaveGame : public USaveGame
 	private:
 	UPROPERTY()
 	bool bValidSave;
-
-	UPROPERTY()
-	FDeckSummonerStats ConstructedData;
 	
 	protected:
 	public:
-	UPROPERTY(EditAnywhere, Category=SummonerSaveData);
-	FString Name;
+	UPROPERTY(BlueprintReadOnly, Category=SaveGame)
+	FDeckSummonerStats SaveData;
 	
-	UPROPERTY(EditAnywhere, Category=SummonerSaveData);
-	TArray<FDeckArmor> Inventory;
 	// ======================================
 	// ===== CONSTRUCTORS_/_DESTRUCTORS =====
 	// ======================================
@@ -61,7 +55,7 @@ class UNTITLED_DECKRPG_API UDeckSaveGame : public USaveGame
 	private:
 	protected:
 	public:
-	UFUNCTION(BlueprintCallable, Category=SummonerSaveGame)
+	UFUNCTION(BlueprintCallable, Category=SaveGame)
     bool IsValidSave() const { return bValidSave; }
 	
 	// ===================s
@@ -70,12 +64,12 @@ class UNTITLED_DECKRPG_API UDeckSaveGame : public USaveGame
 	private:
 	protected:
 	public:
-	UFUNCTION(BlueprintCallable, Category=SummonerSaveGame)
+	UFUNCTION(BlueprintCallable, Category=SaveGame)
 	void SetPlayerData(FDeckSummonerStats data);
 
-	UFUNCTION(BlueprintCallable, Category=SummonerSaveGame)
+	UFUNCTION(BlueprintCallable, Category=SaveGame)
 	FDeckSummonerStats GetPlayerData(APlayerController* controller) const;
 
-	UFUNCTION(BlueprintCallable, Category=SummonerSaveGame)
+	UFUNCTION(BlueprintCallable, Category=SaveGame)
 	void PostConstruction(FDeckSummonerStats data);
 };

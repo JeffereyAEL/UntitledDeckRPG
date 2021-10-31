@@ -1,16 +1,15 @@
 #pragma once
 
 #include "Untitled_DeckRPG/DeckRPG.h"
-#include "Untitled_DeckRPG/SummonerDeck.h"
 
-
-#include "GlobalEventManager.generated.h"
+#include "DeckDebugManager.generated.h"
 
 class ADeckPlayerController;
+class ADeckCombatCharacter;
 
 /** achievements?? currently just a debug class */
 UCLASS()
-class UNTITLED_DECKRPG_API UGlobalEventManager : public UObject
+class UNTITLED_DECKRPG_API UDeckDebugManager : public UObject
 {
 	GENERATED_BODY()
 	// ==============================
@@ -45,7 +44,7 @@ class UNTITLED_DECKRPG_API UGlobalEventManager : public UObject
 	private:
 	protected:
 	public:
-	UGlobalEventManager();
+	UDeckDebugManager();
 
 	void PostConstruct(ADeckPlayerController * controller);
 	
@@ -63,11 +62,26 @@ class UNTITLED_DECKRPG_API UGlobalEventManager : public UObject
 	public:
 	/// the current summoner attained a new item
 	UFUNCTION(BlueprintNativeEvent, Category=GlobalEvents)
-	void PlayerGotItem(FDeckArmor item_instance);
-	virtual void PlayerGotItem_Implementation(FDeckArmor item_instance);
+	void PlayerGotArmor(FDeckArmor item_instance);
+	virtual void PlayerGotArmor_Implementation(FDeckArmor item_instance);
 
 	/// the current summoner attained a new item
 	UFUNCTION(BlueprintNativeEvent, Category=GlobalEvents)
-    void PlayerGotItem(FDeckSummon item_instance);
-	virtual void PlayerGotItem_Implementation(FDeckSummon item_instance);
+    void PlayerGotSummon(FDeckSummon item_instance);
+	virtual void PlayerGotSummon_Implementation(FDeckSummon summon);
+
+	/// the summoner combat character took damage
+	UFUNCTION(BlueprintNativeEvent, Category=GlobalEvents)
+    void PlayerDamaged(ADeckCombatCharacter * player, int32 amt);
+	virtual void PlayerDamaged_Implementation(ADeckCombatCharacter * player, int32 amt);
+
+	/// a default combat character took damage
+	UFUNCTION(BlueprintNativeEvent, Category=GlobalEvents)
+    void EnemyDamaged(ADeckCombatCharacter * player, int32 amt);
+	virtual void EnemyDamaged_Implementation(ADeckCombatCharacter * enemy, int32 amt);
+
+	/// a summoner combat character died
+	UFUNCTION(BlueprintNativeEvent, Category=GlobalEvents)
+    void PlayerDied(ADeckCombatCharacter * player);
+	virtual void PlayerDied_Implementation(ADeckCombatCharacter * player);
 };

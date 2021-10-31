@@ -3,20 +3,12 @@
 #include "Untitled_DeckRPG/DeckRPG.h"
 
 #include "Engine/DataAsset.h"
-#include "Untitled_DeckRPG/InstanceClasses/EnemyInstance.h"
-#include "MissionDataAsset.generated.h"
 
-USTRUCT(BlueprintType)
-struct FMissionWave {
-	GENERATED_BODY()
-	
-	/// What enemies are in a wave
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=MissionWave)
-	TArray<FDeckEnemyConfig> Enemies;
-};
+/*
+#include "DeckMissionAsset.generated.h"
 
 UCLASS(Blueprintable)
-class UNTITLED_DECKRPG_API UMissionDataAsset : public UPrimaryDataAsset
+class UNTITLED_DECKRPG_API UDeckMissionAsset : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
 	// ==============================
@@ -75,3 +67,4 @@ private:
 protected:
 public:
 };
+*/

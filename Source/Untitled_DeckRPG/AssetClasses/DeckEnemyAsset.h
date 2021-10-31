@@ -2,11 +2,11 @@
 
 #include "Untitled_DeckRPG/DeckRPG.h"
 
-#include "Engine/DataAsset.h"
+#include "Untitled_DeckRPG/Core/DeckDataAsset.h"
 #include "DeckEnemyAsset.generated.h"
 
 UCLASS(Blueprintable)
-class UNTITLED_DECKRPG_API UDeckEnemyAsset : public UPrimaryDataAsset
+class UNTITLED_DECKRPG_API UDeckEnemyAsset : public UDeckDataAsset
 {
 	GENERATED_BODY()
 	// ==============================
@@ -66,16 +66,15 @@ public:
 private:
 protected:
 public:
+	/** CDO constructor */
+	UDeckEnemyAsset() { ItemType = "Enemies"; }
+	
 	// =============================
 	// ===== GETTERS_/_SETTERS =====
 	// =============================
 private:
 protected:
 public:
-	UFUNCTION(BlueprintCallable, Category=EnemyDataAsset)
-    virtual FPrimaryAssetId GetPrimaryAssetId() const override {
-		return FPrimaryAssetId("Enemies", GetFName());
-	};
 	
 	// ===================
 	// ===== METHODS =====

@@ -8,6 +8,8 @@ public class Untitled_DeckRPG : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
+		PrivatePCHHeaderFile = "DeckRPG.h";
+		
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Paper2D" });
 	}
 }

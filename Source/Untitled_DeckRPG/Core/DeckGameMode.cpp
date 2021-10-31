@@ -1,6 +1,7 @@
 #include "DeckGameMode.h"
-
-#include "DeckSaveGame.h"
+#include "Untitled_DeckRPG/DeckCPPHelper.h"
+#include "Untitled_DeckRPG/Core/DeckSaveGame.h"
+#include "Untitled_DeckRPG/Core/DeckPlayerController.h"
 
 ADeckGameMode::ADeckGameMode() { PlayerControllerClass = ADeckPlayerController::StaticClass(); }
 
@@ -57,19 +58,28 @@ void ADeckGameMode::SavePlayerPersistentData(FDeckSummonerStats data) {
 }
 
 FDeckSummonerStats ADeckGameMode::LoadPlayerPersistentData(APlayerController* controller, const FString summoner_name) {
-    auto temp_save = Cast<UDeckSaveGame>(UGameplayStatics::LoadGameFromSlot(summoner_name, 0));
+    UDeckSaveGame * temp_save = Cast<UDeckSaveGame>(UGameplayStatics::LoadGameFromSlot(summoner_name, 0));
 
     FDeckSummonerStats data{};
     if (IsValid(temp_save))
+    {
         if (temp_save->IsValidSave())
         {
             return temp_save->GetPlayerData(controller);
         }
-    
+        else
+        {
+            FString msg = "Error loading Summoner Persistent Data of name '" + summoner_name + "' ; IsValidSave() = false";
+            SCREENMSGT(msg, 10.0f);
+        }
+    }
+    else
+    {
 #if WITH_EDITOR
-    FString msg = "Error loading Summoner Persistent Data of name '" + summoner_name + "' ; IsValid() = false";
-    SCREENMSGT(msg, 10.0f);
+        FString msg = "Error loading Summoner Persistent Data of name '" + summoner_name + "' ; IsValid() = false";
+        SCREENMSGT(msg, 10.0f);
 #endif
+    }
     return data;
 }
 

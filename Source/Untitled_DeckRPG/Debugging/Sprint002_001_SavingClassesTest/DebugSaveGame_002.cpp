@@ -1,5 +1,6 @@
 ﻿#include "DebugSaveGame_002.h"
-#include "Untitled_DeckRPG/Externals/DefinedDebugHelpers.h"
+
+#include "Untitled_DeckRPG/DeckCPPHelper.h"
 
 FDebugStructConfig_002::FDebugStructConfig_002() {
     PrivateUProperty = -1;

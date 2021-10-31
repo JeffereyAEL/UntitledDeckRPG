@@ -1,35 +1,39 @@
 #pragma once
 
 #include "Untitled_DeckRPG/DeckRPG.h"
+#include "Untitled_DeckRPG/DeckRPGTypes.h"
 
 #include "__NAME__.generated.h"
 
-UCLASS()
+UCLASS(BlueprintType)
 class UNTITLED_DECKRPG_API __NAME__ : public UObject {
-    GENERATED_BODY();
+    GENERATED_BODY()
 	
     // ======================================
     // ===== CONSTRUCTORS_/_DESTRUCTORS =====
     // ======================================
 private:
-    protected:
-    public:
+protected:
+public:
     // ======================
     // ===== PROPERTIES =====
     // ======================
-    private:
-    protected:
-    public:
+private:
+protected:
+public:
     // =============================
     // ===== GETTERS_/_SETTERS =====
     // =============================
-    private:
-    protected:
-    public:
+private:
+protected:
+public:
+	/** CDO Constructor */
+	__NAME__();
+	
     // ===================
     // ===== METHODS =====
     // ===================
-    private:
-    protected:
-    public:
+private:
+protected:
+public:
 };

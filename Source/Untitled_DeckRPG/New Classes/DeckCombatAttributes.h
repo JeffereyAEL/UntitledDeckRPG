@@ -2,16 +2,13 @@
 
 #include "Untitled_DeckRPG/DeckRPG.h"
 
-#include "UDeckCombatAttributes.generated.h"
+#include "DeckCombatAttributes.generated.h"
 
 class ADeckCombatCharacter;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAttributeModified, ADeckCombatCharacter *, target_character, int32, amt);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttributeStateChange, ADeckCombatCharacter *, target_character);
-
 UCLASS(BlueprintType)
 class UNTITLED_DECKRPG_API UDeckCombatAttributes : public UActorComponent {
-    GENERATED_BODY();
+    GENERATED_BODY()
 	
     // ======================================
     // ===== CONSTRUCTORS_/_DESTRUCTORS =====
@@ -25,58 +22,63 @@ public:
     Power(-1),
     Defense(-1) {}
 
+    UFUNCTION(BlueprintCallable)
+    void PostConstruction(int32 health_max, int32 power, int32 defense);
+    
     // ======================
     // ===== PROPERTIES =====
     // ======================
 private:
 protected:
     /** the max value of health */
-    UPROPERTY(BlueprintReadOnly, Category=Attributes)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Attributes)
     int32 HealthMax;
     
     /** used to determine if a character is alive */
-    UPROPERTY(BlueprintReadOnly, Category=Attributes)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Attributes)
     int32 Health;
 	
     /** modifies the effects of the owner's actions */
-    UPROPERTY(BlueprintReadOnly, Category=Attributes)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Attributes)
     int32 Power;
 	
     /** modifies the effect on the owner from external actions */
-    UPROPERTY(BlueprintReadOnly, Category=Attributes)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Attributes)
     int32 Defense;
+
+    /* TODO: include combat stats ex. damage, healed, shielded, characters killed, etc */
     
 public:
     /** executes when Health is lowered */
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=AttributeDelegate)
+    UPROPERTY(VisibleAnywhere, BlueprintAssignable, Category=AttributeDelegate)
     FOnAttributeModified OnDamaged;
 
     /** executes when Health is raised */
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=AttributeDelegate)
+    UPROPERTY(VisibleAnywhere, BlueprintAssignable, Category=AttributeDelegate)
     FOnAttributeModified OnHealed;
 
     /** executes when power is raised */
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=AttributeDelegate)
+    UPROPERTY(VisibleAnywhere, BlueprintAssignable, Category=AttributeDelegate)
     FOnAttributeModified OnPowerBuffed;
 
     /** executes when power is lowered */
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=AttributeDelegate)
+    UPROPERTY(VisibleAnywhere, BlueprintAssignable, Category=AttributeDelegate)
     FOnAttributeModified OnPowerDebuffed;
 
     /** executes when defense is raised */
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=AttributeDelegate)
+    UPROPERTY(VisibleAnywhere, BlueprintAssignable, Category=AttributeDelegate)
     FOnAttributeModified OnDefenseBuffed;
 
     /** executes when defense is lowered */
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=AttributeDelegate)
+    UPROPERTY(VisibleAnywhere, BlueprintAssignable, Category=AttributeDelegate)
     FOnAttributeModified OnDefenseDebuffed;
 
     /** executes when Health goes from positive to <= 0 */
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=AttributeDelegate)
+    UPROPERTY(VisibleAnywhere, BlueprintAssignable, Category=AttributeDelegate)
     FOnAttributeStateChange OnKilled;
 
     /** executes when Health goes from <= 0 to positive */
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=AttributeDelegate)
+    UPROPERTY(VisibleAnywhere, BlueprintAssignable, Category=AttributeDelegate)
     FOnAttributeStateChange OnRevived;
     
     // =============================
@@ -100,7 +102,7 @@ public:
     
     /** does a straight modification of the named attribute by the amount given */
     UFUNCTION(BlueprintCallable, Category=Attributes)
-    void ApplyHealthDelta(int32 amt);
+    void ApplyHealthDelta(int32 amt, bool b_revivable = false);
 
     /** does a straight modification of the named attribute by the amount given */
     UFUNCTION(BlueprintCallable, Category=Attributes)
@@ -108,7 +110,7 @@ public:
 
     /** does a straight modification of the named attribute by the amount given */
     UFUNCTION(BlueprintCallable, Category=Attributes)
-    void ApplyAttackDelta(int32 amt);
+    void ApplyPowerDelta(int32 amt);
 
     /** does a straight modification of the named attribute by the amount given */
     UFUNCTION(BlueprintCallable, Category=Attributes)
@@ -121,5 +123,5 @@ private:
 protected:
 public:
     /** calls to the owning ADeckCombatCharacter for their initializing Attributes */
-    virtual void BeginPlay() override;
+    // virtual void BeginPlay() override;
 };

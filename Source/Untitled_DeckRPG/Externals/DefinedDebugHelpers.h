@@ -19,8 +19,12 @@ what the current class is where you called this macro!
 Ex:
 This macro prints the class and line along with the message of your choosing!
 SCREENMSG("Have fun today!");
-
 */
+
+/// slight modifications by Jefferey Schlueter
+/*
+ */
+
 #pragma once
 #include "Engine.h"
 #include "Engine/World.h"
@@ -60,13 +64,6 @@ SCREENMSG("Have fun today!");
 	SCREENMSG2("TEST", "Debugging Here!");
 */
 #define SCREENMSG2(Param1,Param2) if(GEngine) (GEngine->AddOnScreenDebugMessage(-1, 30.f, FColor::Emerald, *(CUR_CLASS_LINE + ": " + Param1 + " " + Param2)) )
-
-/* 
-Class Name + Line# + First Param is a message, second is time on screen!
-Ex:
-SCREENMSGT("TEST", 10.5);
-*/
-#define SCREENMSGT(Param1,Param2) if(GEngine) (GEngine->AddOnScreenDebugMessage(-1, Param2, FColor::Turquoise, *(CUR_CLASS_LINE + ": " + Param1)))
 
 /* 
 Class Name + Line# + First Param is a message!

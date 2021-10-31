@@ -2,14 +2,12 @@
 
 #include "Untitled_DeckRPG/DeckRPG.h"
 
-#include "ADeckCombatCharacter.h"
-#include "Untitled_DeckRPG/SummonerDeck.h"
-
-#include "ADeckSummonerCombatCharacter.generated.h"
+#include "DeckCombatCharacter.h"
+#include "DeckSummonerCombatCharacter.generated.h"
 
 UCLASS(BlueprintType)
 class UNTITLED_DECKRPG_API ADeckSummonerCombatCharacter : public ADeckCombatCharacter {
-    GENERATED_BODY();
+    GENERATED_BODY()
 	
     // ======================================
     // ===== CONSTRUCTORS_/_DESTRUCTORS =====
@@ -20,7 +18,8 @@ class UNTITLED_DECKRPG_API ADeckSummonerCombatCharacter : public ADeckCombatChar
     ADeckSummonerCombatCharacter() : ADeckCombatCharacter() {}
 
     /** constructs a summoner character in combat given a configuration */
-    virtual virtual void PostConstruction(FDeckSummonerStats config, int deck_num) override;
+    UFUNCTION(BlueprintCallable, Category=SummonerCombatCharacter)
+    void PostConstructionSummoner(FDeckSummonerStats config, int deck_num = 0);
     
     // ======================
     // ===== PROPERTIES =====
@@ -28,7 +27,13 @@ class UNTITLED_DECKRPG_API ADeckSummonerCombatCharacter : public ADeckCombatChar
     private:
     protected:
     public:
-    FDeckSummonerLoadout Deck;
+    /** the deck the player is using for this combat instance */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=SummonerCombatCharacter)
+    FDeckSummonerLoadout Loadout;
+
+    /** broadcasts every time the player takes an action */
+    UPROPERTY(BlueprintAssignable, Category=SummonerCombatCharacter)
+    FOnCombatStateChange ActionTaken;
     
     // =============================
     // ===== GETTERS_/_SETTERS =====
@@ -41,6 +46,14 @@ class UNTITLED_DECKRPG_API ADeckSummonerCombatCharacter : public ADeckCombatChar
     // ===================
     private:
     protected:
+    /** helper function for gathering stat information from DeckArmorAssets */
+    inline void GatherArmorData(UDeckArmorAsset * armor, int32& power, int32& defense);
+    
     public:
+    virtual void TakeTurn_Implementation() override;
+
+    virtual void EndTurn_Implementation() override;
+
+    
 };
  

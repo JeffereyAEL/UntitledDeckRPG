@@ -1,7 +1,8 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
+#include "EngineMinimal.h"
+#include "Engine/Engine.h"
+#include "DeckRPGTypes.h"
 
-#include "Untitled_DeckRPG/HelperMacros.h"
-#include "Untitled_DeckRPG/Externals/DefinedDebugHelpers.h"
-#include "Untitled_DeckRPG/DeckRPGTypes.h"
+UNTITLED_DECKRPG_API DECLARE_LOG_CATEGORY_EXTERN(LogDeckRPG, Log, All);

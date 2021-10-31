@@ -1,38 +1,35 @@
 #pragma once
 
 #include "Untitled_DeckRPG/DeckRPG.h"
-#include "Untitled_DeckRPG/DeckRPGTypes.h"
 
 #include "Untitled_DeckRPG/AssetClasses/DeckItemAsset.h"
-#include "DeckArmorAsset.generated.h"
+#include "DeckSummonAsset.generated.h"
 
+/** defines a Summon Item */
 UCLASS(BlueprintType)
-class UNTITLED_DECKRPG_API UDeckArmorAsset : public UDeckItemAsset
+class UNTITLED_DECKRPG_API UDeckSummonAsset : public UDeckItemAsset
 {
 	GENERATED_BODY()
-	
+
 	// ======================================
 	// ===== CONSTRUCTORS_/_DESTRUCTORS =====
 	// ======================================
 	private:
 	protected:
 	public:
-	UDeckArmorAsset() {
-		ItemType = "Armors";
-	}
+	UDeckSummonAsset() { ItemType = "Summons"; }
+	
 	// ======================
 	// ===== PROPERTIES =====
 	// ======================
 	private:
 	protected:
 	public:
-	/// The Armor Type, modifies deck length
+	/** combines with the name to make the summon sound impressive
+	 *  Common', being a combat summon is a competitive industry, cut them some slack
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Armor)
-	TEnumAsByte<EDeckArmorWeight> Weight;
-
-	/// The Armor location, summoners can only wear one of each armor in each location
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Armor)
-	TEnumAsByte<EDeckArmorSlot> Slot;
+	FText SummonTitle;
 	
 	// =============================
 	// ===== GETTERS_/_SETTERS =====

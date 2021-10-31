@@ -30,3 +30,10 @@
         class_ref_data_asset = Cast<UPrimaryDataAsset>(__manager__->GetPrimaryAssetObject(asset_id));\
         }\
     }
+
+/** 
+Class Name + Line# + First Param is a message, second is time on screen!
+Ex:
+SCREENMSGT("TEST", 10.5);
+*/
+#define SCREENMSGT(Param1,Param2) if(GEngine) ( GEngine->AddOnScreenDebugMessage(-1, Param2, FColor::Turquoise, *(CUR_CLASS_LINE + ": " + Param1)))
