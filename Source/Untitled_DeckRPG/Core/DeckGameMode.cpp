@@ -9,9 +9,8 @@ ADeckPlayerController* ADeckGameMode::GetPlayerController() {
     auto controller = Cast<ADeckPlayerController>(GetWorld()->GetFirstPlayerController());
     if (!IsValid(controller))
     {
-#if WITH_EDITOR
-        SCREENMSGT("SummonerGameMode was unable to cast first player controller to ADeckPlayerController", 10);
-#endif
+        SCREEN_LOG("SummonerGameMode was unable to cast first player controller to ADeckPlayerController", 5,
+            LogType_Error);
         return nullptr;
     }
     return controller;
@@ -19,18 +18,16 @@ ADeckPlayerController* ADeckGameMode::GetPlayerController() {
 
 void ADeckGameMode::BeginPlay() {
     Super::BeginPlay();
-#if WITH_EDITOR
-    SCREENMSGT("ADeckGameMode has been created", 10);
+    SCREEN_LOG_DEBUG("ADeckGameMode has been created", 5);
     auto controller =  GetPlayerController();
     if (!IsValid(controller))
     {
-        SCREENMSG("Controller wasn't instaniated in time for summoner data instantiation");
+        SCREEN_LOG("Controller wasn't instaniated in time for summoner data instantiation", 5, LogType_Error);
         return;
     }
     auto new_player = FDeckSummonerStats{};
     new_player.Name = "The Debugger";
     controller->SetPersistentData(new_player);
-#endif
 }
 
 void ADeckGameMode::SavePlayerPersistentData(FDeckSummonerStats data) {
@@ -38,22 +35,18 @@ void ADeckGameMode::SavePlayerPersistentData(FDeckSummonerStats data) {
         UGameplayStatics::CreateSaveGameObject(UDeckSaveGame::StaticClass()));
     if (!IsValid(data_to_save)) 
     {
-#if WITH_EDITOR
-        SCREENMSGT("Error saving Summoner Persistent Data; IsValid() = false", 10.0f);
-#endif
+        SCREEN_LOG("saving Summoner Persistent Data; IsValid() = false", 10.0f, LogType_Error);
         return;
     }
-    
-#if WITH_EDITOR
+
     FString msg = "Saving data for summoner '" + data.Name + "'";
-    SCREENMSGT(msg, 10);
-#endif
+    SCREEN_LOG_DEBUG(msg, 10);
+    
     data_to_save->SetPlayerData(data);
     if (!UGameplayStatics::SaveGameToSlot(data_to_save, data.Name, 0))
     {
-#if WITH_EDITOR
-        SCREENMSGT("Error saving Summoner Persistent Data; UGameplayStatics::SaveGameToSlot() = false", 10.0f);
-#endif
+        SCREEN_LOG("saving Summoner Persistent Data; UGameplayStatics::SaveGameToSlot() = false", 10.0f,
+            LogType_Error);
     }
 }
 
@@ -69,15 +62,15 @@ FDeckSummonerStats ADeckGameMode::LoadPlayerPersistentData(APlayerController* co
         }
         else
         {
-            FString msg = "Error loading Summoner Persistent Data of name '" + summoner_name + "' ; IsValidSave() = false";
-            SCREENMSGT(msg, 10.0f);
+            FString msg = "loading Summoner Persistent Data of name '" + summoner_name + "' ; IsValidSave() = false";
+            SCREEN_LOG(msg, 10.0f, LogType_Error);
         }
     }
     else
     {
 #if WITH_EDITOR
-        FString msg = "Error loading Summoner Persistent Data of name '" + summoner_name + "' ; IsValid() = false";
-        SCREENMSGT(msg, 10.0f);
+        FString msg = "loading Summoner Persistent Data of name '" + summoner_name + "' ; IsValid() = false";
+        SCREEN_LOG(msg, 10.0f, LogType_Error);
 #endif
     }
     return data;

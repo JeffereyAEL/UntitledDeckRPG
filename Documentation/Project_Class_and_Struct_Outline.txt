@@ -3,8 +3,12 @@
 #include "Untitled_DeckRPG/DeckRPG.h"
 #include "Untitled_DeckRPG/DeckRPGTypes.h"
 
+/* parent class includes go here ^^^ */
 #include "__NAME__.generated.h"
 
+/* native c++ class pre-declarations go here ^^^ */
+
+/** __NAME__ doc string */
 UCLASS(BlueprintType)
 class UNTITLED_DECKRPG_API __NAME__ : public UObject {
     GENERATED_BODY()

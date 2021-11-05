@@ -10,6 +10,9 @@ public class Untitled_DeckRPG : ModuleRules
 
 		PrivatePCHHeaderFile = "DeckRPG.h";
 		
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Paper2D" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", 
+			"Slate", "SlateCore", "Paper2D" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "GameplayAbilities", "GameplayTags", 
+			"GameplayTasks"});
 	}
 }

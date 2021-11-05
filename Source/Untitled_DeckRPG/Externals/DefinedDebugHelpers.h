@@ -69,7 +69,7 @@ SCREENMSG("Have fun today!");
 Class Name + Line# + First Param is a message!
 # stays on screen for a frame
 Ex:
-SCREENMSGT("TEST");
+SCREEN_LOG("TEST");
 */
 #define SCREENMSGFORFRAME(Param1) if(GEngine) (GEngine->AddOnScreenDebugMessage(-1, GetWorld()->DeltaTimeSeconds, FColor::Turquoise, *(CUR_CLASS_LINE + ": " + Param1)))
 

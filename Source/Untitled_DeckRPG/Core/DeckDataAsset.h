@@ -22,7 +22,15 @@ class UNTITLED_DECKRPG_API UDeckDataAsset : public UPrimaryDataAsset {
 	public:
 	/** The type of item this is, defined in native parent class */
 	UPROPERTY(BlueprintReadOnly, Category=DataAsset)
-	FPrimaryAssetType ItemType;
+	FPrimaryAssetType AssetType;
+	
+	/// Asset Name
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=DataAsset)
+	FString AssetName;
+
+	/// in-game visualization
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=DataAsset)
+	TSubclassOf<AActor> AssetAvatar;
 	
     // =============================
     // ===== GETTERS_/_SETTERS =====
@@ -34,7 +42,7 @@ class UNTITLED_DECKRPG_API UDeckDataAsset : public UPrimaryDataAsset {
     FString GetAssetIdAsString() const { return GetPrimaryAssetId().ToString(); }
 	
     /** Override of GetPrimaryAssetId, returns pair of ItemType : GetFName() */
-    virtual FPrimaryAssetId GetPrimaryAssetId() const override { return FPrimaryAssetId(ItemType, GetFName()); }
+    virtual FPrimaryAssetId GetPrimaryAssetId() const override { return FPrimaryAssetId(AssetType, GetFName()); }
 	
     // ===================
     // ===== METHODS =====

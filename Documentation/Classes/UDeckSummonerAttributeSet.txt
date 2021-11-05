@@ -20,10 +20,6 @@ public:
 	
 	/** the max value of Mana */
 	UPROPERTY(BlueprintReadOnly, Category=Attributes)
-	FGameplayAttributeData Level;
-	
-	/** the max value of Mana */
-	UPROPERTY(BlueprintReadOnly, Category=Attributes)
 	FGameplayAttributeData Experience;
 	
 	// =============================

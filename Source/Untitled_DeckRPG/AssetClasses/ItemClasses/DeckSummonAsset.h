@@ -17,7 +17,7 @@ class UNTITLED_DECKRPG_API UDeckSummonAsset : public UDeckItemAsset
 	private:
 	protected:
 	public:
-	UDeckSummonAsset() { ItemType = "Summons"; }
+	UDeckSummonAsset() { AssetType = "Summons"; }
 	
 	// ======================
 	// ===== PROPERTIES =====
@@ -28,8 +28,14 @@ class UNTITLED_DECKRPG_API UDeckSummonAsset : public UDeckItemAsset
 	/** combines with the name to make the summon sound impressive
 	 *  Common', being a combat summon is a competitive industry, cut them some slack
 	 */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Armor)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Summon)
 	FText SummonTitle;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Summon)
+	float BasePower;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Armor)
+	TSubclassOf<UDeckGameplayAbility> SpecialAbility;
 	
 	// =============================
 	// ===== GETTERS_/_SETTERS =====

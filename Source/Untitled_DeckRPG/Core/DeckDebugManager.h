@@ -85,3 +85,24 @@ class UNTITLED_DECKRPG_API UDeckDebugManager : public UObject
     void PlayerDied(ADeckCombatCharacter * player);
 	virtual void PlayerDied_Implementation(ADeckCombatCharacter * player);
 };
+
+UCLASS(BlueprintType)
+class UNTITLED_DECKRPG_API UDebugFunctions : public UBlueprintFunctionLibrary {
+	GENERATED_BODY()
+	
+public:
+	/** prints a message to the screen and to the output log */
+	UFUNCTION(BlueprintCallable, Category=DebugFunctions)
+	static void LogToScreen(FString cpp_location, FString msg, float time, ELogType log_type = LogType_Debug);
+
+	/** prints a message to the output log */
+	UFUNCTION(BlueprintCallable, Category=DebugFunctions)
+	static void LogToOutput(FString cpp_location, FString msg, ELogType log_type = LogType_Debug);
+};
+
+#define SCREEN_LOG(msg, time, log_type) UDebugFunctions::LogToScreen(CUR_CLASS_LINE, msg, time, log_type)
+#define SCREEN_LOG_DEBUG(msg, time) UDebugFunctions::LogToScreen(CUR_CLASS_LINE, msg, time)
+#define OUTPUT_LOG(msg, log_type) UDebugFunctions::LogToScreen(CUR_CLASS_LINE, msg, log_type)
+#define OUTPUT_LOG_DEBUG(msg) UDebugFunctions::LogToScreen(CUR_CLASS_LINE, msg)
+#define NOT_IMPLEMENTED_LOG SCREEN_LOG("Function not implemented", 3, LogType_Warning)
+#define NO_ENTRY_LOG SCREEN_LOG("Code should not be reached", 7.5, LogType_Warning)

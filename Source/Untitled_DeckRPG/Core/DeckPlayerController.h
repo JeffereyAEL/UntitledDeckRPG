@@ -65,17 +65,19 @@ class UNTITLED_DECKRPG_API ADeckPlayerController : public APlayerController
 	public:
 	ADeckPlayerController();
 
+	virtual void PostInitializeComponents() override;
+	
 	// =============================
 	// ===== GETTERS_/_SETTERS =====
 	// =============================
 	private:
 	protected:
 	public:
-	/// Sets the PlayerController's Player reference by replacing PersistentData
+	/// Sets the PlayerController's SummonerSpawn reference by replacing PersistentData
 	UFUNCTION(BlueprintCallable, Category=PlayerController)
 	void SetPersistentData(FDeckSummonerStats persistent_data);
 
-	/// Gets the PlayerController's Player reference (IE, the USummonerPersistentData)
+	/// Gets the PlayerController's SummonerSpawn reference (IE, the USummonerPersistentData)
 	UFUNCTION(BlueprintCallable, Category=PlayerController)
     FDeckSummonerStats GetPersistentData() const { return PersistentData; };
 	

@@ -4,11 +4,6 @@
 private:
 protected:
 public:
-	URPGAttributeSet();
-	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
-	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
-	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-	
 	// ======================
 	// ===== PROPERTIES =====
 	// ======================
@@ -31,6 +26,10 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category=Attributes)
 	FGameplayAttributeData Defense;
 	
+	/** the  */
+	UPROPERTY(BlueprintReadOnly, Category=Attributes)
+	FGameplayAttributeData Level;
+	
 	// =============================
 	// ===== GETTERS_/_SETTERS =====
 	// =============================
@@ -43,3 +42,6 @@ public:
 private:
 protected:
 public:
+	UFUNCTION(BlueprintNativeEvent, Category=Attribute)
+	void RecieveRawDamage
+	

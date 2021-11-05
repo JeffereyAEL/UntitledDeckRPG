@@ -18,8 +18,9 @@ class UNTITLED_DECKRPG_API UDeckArmorAsset : public UDeckItemAsset
 	protected:
 	public:
 	UDeckArmorAsset() {
-		ItemType = "Armors";
+		AssetType = "Armors";
 	}
+	
 	// ======================
 	// ===== PROPERTIES =====
 	// ======================
@@ -27,12 +28,18 @@ class UNTITLED_DECKRPG_API UDeckArmorAsset : public UDeckItemAsset
 	protected:
 	public:
 	/// The Armor Type, modifies deck length
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Armor)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Armor)
 	TEnumAsByte<EDeckArmorWeight> Weight;
 
 	/// The Armor location, summoners can only wear one of each armor in each location
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Armor)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Armor)
 	TEnumAsByte<EDeckArmorSlot> Slot;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Armor)
+	float BaseDamageThreshold;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Armor)
+	float BaseDamageResistance;
 	
 	// =============================
 	// ===== GETTERS_/_SETTERS =====
