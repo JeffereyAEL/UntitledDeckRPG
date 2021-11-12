@@ -21,12 +21,13 @@ ADeckCombatManager::ADeckCombatManager() {
 void ADeckCombatManager::PostInitializeComponents() {
 	Super::PostInitializeComponents();
 
+	FAttachmentTransformRules rules = FAttachmentTransformRules::KeepWorldTransform;
 	SummonerSpawn->RegisterComponent();
-	SummonerSpawn->SetupAttachment(RootComponent);
+	SummonerSpawn->AttachToComponent(RootComponent, rules);
 	EnemySpawn->RegisterComponent();
-	EnemySpawn->SetupAttachment(RootComponent);
+	EnemySpawn->AttachToComponent(RootComponent, rules);
 	PlayerCamera->RegisterComponent();
-	PlayerCamera->SetupAttachment(RootComponent);
+	PlayerCamera->AttachToComponent(RootComponent, rules);
 }
 
 
@@ -48,23 +49,27 @@ void ADeckCombatManager::BeginPlay() {
 	
 	if (!IsValid(SummonerToSpawn)) { NO_ENTRY_LOG; return; }
 	auto params = FActorSpawnParameters{};
-	params.Instigator = this;
+	params.Instigator = nullptr;
 	params.Owner = this;
-	params.Name = TEXT("Summoner");
+	params.Name = TEXT("SummonerAvatar");
 	FVector location = SummonerSpawn->GetComponentLocation();
 	FRotator rotation = SummonerSpawn->GetComponentRotation();
 	Summoner = Cast<ADeckSummonerCombatCharacter>(
 		world->SpawnActor(SummonerToSpawn, &location, &rotation, params)
 		);
+	Summoner->OrientateAvatar();
 
 	if (!IsValid(EnemyToSpawn)) { NO_ENTRY_LOG; return; }
-	params.Name = TEXT("Enemy");
+	params.Name = TEXT("EnemyAvatar");
 	location = EnemySpawn->GetComponentLocation();
 	rotation = EnemySpawn->GetComponentRotation();
 	Enemy = Cast<ADeckEnemyCombatCharacter>(
 		world->SpawnActor(EnemyToSpawn, &location, &rotation, params)
 		);
-	SCREEN_LOG_DEBUG("cpp", 10);
-	
+	Enemy->OrientateAvatar();
+	SCREEN_LOG_DEBUG("cpp", 5);
+
+	// so the blueprint constructor is called after this, yes- I hate it too
 	Super::BeginPlay();
 }
+

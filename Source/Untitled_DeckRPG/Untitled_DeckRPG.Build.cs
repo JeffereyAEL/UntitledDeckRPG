@@ -13,6 +13,7 @@ public class Untitled_DeckRPG : ModuleRules
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", 
 			"Slate", "SlateCore", "Paper2D" });
 		PrivateDependencyModuleNames.AddRange(new string[] { "GameplayAbilities", "GameplayTags", 
-			"GameplayTasks"});
+			"GameplayTasks", "Blutility"});
 	}
 }
+ 

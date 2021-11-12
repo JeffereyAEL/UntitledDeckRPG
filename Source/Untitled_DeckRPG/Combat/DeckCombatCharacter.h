@@ -125,5 +125,7 @@ protected:
 
     /** initializes attributes, called in PostInitializeComponents */
 	virtual void InitializeAttributes();
+
+	virtual void OrientateAvatar();
 };
 

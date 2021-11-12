@@ -59,4 +59,6 @@ public:
     virtual void BeginPlay() override;
 
     virtual void InitializeAttributes() override;
+
+    virtual void OrientateAvatar() override;
 };

@@ -6,9 +6,9 @@
 #include "Untitled_DeckRPG/Core/DeckGameMode.h"
 #include "Untitled_DeckRPG/Core/DeckPlayerController.h"
 #include "Untitled_DeckRPG/Core/DeckDebugManager.h"
-#include "Untitled_DeckRPG/Combat/DeckAbilitySystemComponent.h"
-#include "Untitled_DeckRPG/Combat/DeckGameplayAbility.h"
-#include "Untitled_DeckRPG/Combat/DeckAttributeSet.h"
+#include "Untitled_DeckRPG/GAS/DeckAbilitySystemComponent.h"
+#include "Untitled_DeckRPG/GAS/DeckGameplayAbility.h"
+#include "Untitled_DeckRPG/GAS/DeckAttributeSet.h"
 
 ADeckCombatCharacter::ADeckCombatCharacter() :
     CharacterName("PostConstruction()_wasn't_called"),
@@ -122,4 +122,11 @@ void ADeckCombatCharacter::EndTurn_Implementation() {
 }
 
 void ADeckCombatCharacter::InitializeAttributes() {
+}
+
+void ADeckCombatCharacter::OrientateAvatar() {
+    CombatAvatar->SetWorldLocation(GetActorLocation(),
+        false, nullptr, ETeleportType::ResetPhysics);
+    CombatAvatar->SetWorldRotation(GetActorRotation(),
+        false, nullptr, ETeleportType::ResetPhysics);
 }

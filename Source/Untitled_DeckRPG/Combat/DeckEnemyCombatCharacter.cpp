@@ -50,3 +50,12 @@ void ADeckEnemyCombatCharacter::InitializeAttributes() {
     Super::InitializeAttributes();
     SCREEN_LOG("Deferred enemy asset access until runtime", 2, LogType_Warning);
 }
+
+void ADeckEnemyCombatCharacter::OrientateAvatar() {
+    Super::OrientateAvatar();
+    FVector location = GetActorLocation();
+    location += FVector(0, 0,
+        CombatAvatar->GetCachedLocalBounds().BoxExtent.Z * 2.2f);
+    StatusUI->SetWorldLocation(location,
+        false, nullptr, ETeleportType::ResetPhysics);
+}

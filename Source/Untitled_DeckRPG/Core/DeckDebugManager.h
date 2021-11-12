@@ -102,7 +102,7 @@ public:
 
 #define SCREEN_LOG(msg, time, log_type) UDebugFunctions::LogToScreen(CUR_CLASS_LINE, msg, time, log_type)
 #define SCREEN_LOG_DEBUG(msg, time) UDebugFunctions::LogToScreen(CUR_CLASS_LINE, msg, time)
-#define OUTPUT_LOG(msg, log_type) UDebugFunctions::LogToScreen(CUR_CLASS_LINE, msg, log_type)
-#define OUTPUT_LOG_DEBUG(msg) UDebugFunctions::LogToScreen(CUR_CLASS_LINE, msg)
-#define NOT_IMPLEMENTED_LOG SCREEN_LOG("Function not implemented", 3, LogType_Warning)
+#define OUTPUT_LOG(msg, log_type) UDebugFunctions::LogToOutput(CUR_CLASS_LINE, msg, log_type)
+#define OUTPUT_LOG_DEBUG(msg) UDebugFunctions::LogToOutput(CUR_CLASS_LINE, msg)
+#define NOT_IMPLEMENTED_LOG SCREEN_LOG("Function not implemented", 7.5, LogType_Warning)
 #define NO_ENTRY_LOG SCREEN_LOG("Code should not be reached", 7.5, LogType_Warning)

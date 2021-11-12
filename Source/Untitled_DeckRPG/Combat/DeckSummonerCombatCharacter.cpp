@@ -1,7 +1,4 @@
 ﻿#include "DeckSummonerCombatCharacter.h"
-
-#include "DeckAbilitySystemComponent.h"
-
 #include "Untitled_DeckRPG/DeckCPPHelper.h"
 
 #include "Untitled_DeckRPG/AssetClasses/ItemClasses/DeckSummonAsset.h"
@@ -9,6 +6,7 @@
 #include "Untitled_DeckRPG/Core/DeckGameMode.h"
 #include "Untitled_DeckRPG/Core/DeckPlayerController.h"
 #include "Untitled_DeckRPG/Core/DeckDebugManager.h"
+#include "Untitled_DeckRPG/GAS/DeckAbilitySystemComponent.h"
 
 void ADeckSummonerCombatCharacter::PostConstruction(FDeckSummonerStats config, int deck_num) {
     Loadout = config.LoadOuts[deck_num];

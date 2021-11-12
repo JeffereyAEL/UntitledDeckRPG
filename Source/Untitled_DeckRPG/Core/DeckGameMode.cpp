@@ -3,7 +3,15 @@
 #include "Untitled_DeckRPG/Core/DeckSaveGame.h"
 #include "Untitled_DeckRPG/Core/DeckPlayerController.h"
 
-ADeckGameMode::ADeckGameMode() { PlayerControllerClass = ADeckPlayerController::StaticClass(); }
+ADeckGameMode::ADeckGameMode() {
+    PlayerControllerClass = ADeckPlayerController::StaticClass();
+    
+    static ConstructorHelpers::FClassFinder<APawn> pawn_class(
+        TEXT("/Game/Developers/JeffereySchlueter/Collections/Sprint003_CombatDemo/P_ExampleCombatManager")
+        );
+    if (!IsValid(pawn_class.Class)) { NO_ENTRY_LOG; return; }
+    DefaultPawnClass = pawn_class.Class;
+}
 
 ADeckPlayerController* ADeckGameMode::GetPlayerController() {
     auto controller = Cast<ADeckPlayerController>(GetWorld()->GetFirstPlayerController());
